@@ -11,6 +11,7 @@ class SideMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 여기서 스크린 사이즈에 대해서 실시간으로 반응하고 있잖아..
     if (!ResponsiveWidget.isLargeScreen(context)) {
       return VerticalMenuItem(itemName: itemName, onTap: onTap,);
     }

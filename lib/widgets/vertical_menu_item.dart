@@ -14,18 +14,18 @@ class VerticalMenuItem extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return InkWell(
-      onTap: onTap,
-      onHover: (value) {
+      onTap: onTap, // 실제로 외부에서 받는 onTap 을 그대로 여기에서 사용하고 있다는 것.
+      onHover: (value) { // onHover 도 여기서 바로 사용할 수 있다. 왜냐면
         value ?
-        menuController.onHover(itemName) :
+        menuController.onHover(itemName) : // 여기서 보듯이 현재 이 객체가 가지고 있는 itemName 을 가지고 비교를 하니깐.
         menuController.onHover("not hovering");
       },
-      child: Obx(() => Container(
+      child: Obx(() => Container( // 이제 obs 값을 따라서 실시간으로 Container 값을 변경하고 싶다는 거지. 그걸 가능하게 하는게 Obx()
         color: menuController.isHovering(itemName) ? lightGrey.withOpacity(0.1) : Colors.transparent,
         child: Row(
           children: [
             Visibility(visible: menuController.isHovering(itemName) || menuController.isActive(itemName),maintainSize: true,
-              maintainState: true,maintainAnimation: true,
+              maintainState: true,maintainAnimation: true, // 여기 Visibility 부분은 잘 모르겠다.
               child: Container(width: 3, height: 72, color: dark,),),
             Expanded(child: Column(
               mainAxisSize: MainAxisSize.min,
