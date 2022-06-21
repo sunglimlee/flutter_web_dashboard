@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_dashboard/controllers/menu_controller.dart';
 import 'package:flutter_web_dashboard/layout.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
+  Get.put(MenuController()); // MenuController 를 찾기 위해서 Get.put 을 맨처음에 넣어준다.
   runApp(const MyApp());
 }
 

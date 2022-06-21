@@ -12,8 +12,10 @@ class ResponsiveWidget extends StatelessWidget {
   final Widget? mediumScreen;
   final Widget? smallScreen;
   final Widget? customScreen;
+  final GlobalKey<ScaffoldState> gKey;
 
-  const ResponsiveWidget({Key? key, required this.largeScreen, this.mediumScreen, this.smallScreen, this.customScreen}) : super(key: key);
+
+  const ResponsiveWidget({Key? key, required this.largeScreen, this.mediumScreen, this.smallScreen, this.customScreen, required this.gKey}) : super(key: key);
 
   // 사이즈 확인위한 정적함수
   static bool isSmallScreen(BuildContext context) =>
@@ -44,11 +46,13 @@ class ResponsiveWidget extends StatelessWidget {
       */
       double width = constraints.maxWidth; // 최대 넓이를 받고
       if (width >= largeScreenSize) {
+        if (gKey.currentState!.isDrawerOpen) gKey.currentState!.closeDrawer();
         return largeScreen; // 이미 largeScreen 과 smallScreen 의 객체가 시작할 때 부터 존재하기 때문에 그걸 던져준다는 거지..
       }
       // [error] The return type 'Widget?' isn't a 'Widget', as required by the closure's context.
       // [answer] ?? 으로 null 에 대응하자.
       else if (width < largeScreenSize && width >= mediumScreenSize) {
+        if (gKey.currentState!.isDrawerOpen) gKey.currentState!.closeDrawer();
         return mediumScreen ?? largeScreen;
       } // null 에 대응하자.
       else {
